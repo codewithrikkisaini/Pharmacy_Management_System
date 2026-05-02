@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
+use App\Models\ContactMessage;
+
 class Contact extends Component
 {
     public $name;
@@ -20,7 +22,12 @@ class Contact extends Component
     {
         $this->validate();
         
-        // In a real app, you might send an email or save to DB
+        ContactMessage::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'message' => $this->message,
+        ]);
+
         session()->flash('success', 'Message sent successfully! We will get back to you soon.');
         $this->reset();
     }
