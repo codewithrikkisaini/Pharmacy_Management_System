@@ -8,6 +8,20 @@
             </p>
         </div>
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+
+        <!-- Notifications -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            @if(session()->has('success'))
+                <div class="bg-emerald-500/20 backdrop-blur border border-emerald-500/20 text-emerald-400 px-6 py-4 rounded-3xl font-bold text-sm">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session()->has('error'))
+                <div class="bg-red-500/20 backdrop-blur border border-red-500/20 text-red-400 px-6 py-4 rounded-3xl font-bold text-sm">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
     </div>
 
     <!-- Filter & Content Section -->
@@ -78,8 +92,9 @@
                             
                             <div class="flex items-center justify-between pt-6 mt-auto">
                                 <span class="text-3xl font-black text-indigo-600">${{ number_format($medicine->price, 2) }}</span>
-                                <button class="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-xs shadow-lg shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all">
-                                    Order Now
+                                <button wire:click="addToCart({{ $medicine->id }})" class="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-xs shadow-lg shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>

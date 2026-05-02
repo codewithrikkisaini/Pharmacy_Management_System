@@ -21,14 +21,16 @@ class Dashboard extends Component
             'users' => User::where('role', 'user')->count(),
             'doctors' => Doctor::count(),
             'appointments' => Appointment::count(),
-            'total_sales' => Order::where('status', 'Completed')->sum('total_amount'),
+            'total_sales' => Order::where('status', 'completed')->sum('total_amount'),
         ];
 
         $recent_orders = Order::with('user')->latest()->take(5)->get();
+        $low_stock_medicines = Medicine::where('stock', '<', 10)->get();
 
         return view('livewire.admin.dashboard', [
             'stats' => $stats,
             'recent_orders' => $recent_orders,
+            'low_stock_medicines' => $low_stock_medicines,
         ])->layout('layouts.admin');
     }
 }

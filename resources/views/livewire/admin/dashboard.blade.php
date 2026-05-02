@@ -83,14 +83,37 @@
         <div class="bg-white p-6 rounded-[24px] card-shadow flex items-center justify-between">
             <div class="space-y-1">
                 <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Low Stock Alerts</div>
-                <div class="text-2xl font-black text-slate-900">0</div>
-                <div class="text-[10px] text-slate-500 font-medium">Products with stock at or below 5 units</div>
+                <div class="text-2xl font-black text-slate-900">{{ count($low_stock_medicines) }}</div>
+                <div class="text-[10px] text-slate-500 font-medium">Products with stock at or below 10 units</div>
             </div>
             <div class="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-red-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             </div>
         </div>
     </div>
+
+    @if(count($low_stock_medicines) > 0)
+    <div class="glass p-8 rounded-[32px] border-2 border-red-50 bg-red-50/10">
+        <h3 class="text-lg font-black text-red-600 mb-6 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            Low Stock Medicines
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach($low_stock_medicines as $medicine)
+            <div class="bg-white p-5 rounded-2xl border border-red-100 flex justify-between items-center">
+                <div>
+                    <p class="font-bold text-sm text-slate-900">{{ $medicine->name }}</p>
+                    <p class="text-xs text-slate-500 font-medium">In {{ $medicine->category->name }}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-black text-red-600">{{ $medicine->stock }}</p>
+                    <p class="text-[10px] font-black text-slate-400 uppercase">Left</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
 
     <!-- Charts Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-10">
@@ -151,6 +174,47 @@
                     Approved payments ready for fulfillment and delivery updates.
                 </p>
             </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders Table -->
+    <div class="bg-white rounded-[32px] card-shadow overflow-hidden">
+        <div class="p-8 border-b flex justify-between items-center">
+            <h3 class="text-lg font-black text-slate-900">Recent Order Activity</h3>
+            <a href="{{ route('admin.orders') }}" class="text-xs font-bold text-indigo-600 hover:underline">View All Orders &rarr;</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-slate-50/50 text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                    <tr>
+                        <th class="px-8 py-5">Order #</th>
+                        <th class="px-8 py-5">Customer</th>
+                        <th class="px-8 py-5">Date</th>
+                        <th class="px-8 py-5">Amount</th>
+                        <th class="px-8 py-5 text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    @foreach($recent_orders as $order)
+                    <tr class="hover:bg-slate-50/30 transition-colors">
+                        <td class="px-8 py-5 font-black text-slate-900">{{ $order->order_number }}</td>
+                        <td class="px-8 py-5 font-bold text-slate-700">{{ $order->customer_name }}</td>
+                        <td class="px-8 py-5 text-xs text-slate-500 font-medium">{{ $order->created_at->format('d M, Y h:i A') }}</td>
+                        <td class="px-8 py-5 font-black text-indigo-600">${{ number_format($order->total_amount, 2) }}</td>
+                        <td class="px-8 py-5 text-center">
+                            <span class="inline-block px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest
+                                @if($order->status == 'completed') bg-emerald-50 text-emerald-600 @endif
+                                @if($order->status == 'pending') bg-amber-50 text-amber-600 @endif
+                                @if($order->status == 'processing') bg-sky-50 text-sky-600 @endif
+                                @if($order->status == 'rejected') bg-red-50 text-red-600 @endif
+                            ">
+                                {{ $order->status }}
+                            </span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 

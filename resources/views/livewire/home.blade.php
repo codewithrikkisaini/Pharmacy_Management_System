@@ -48,23 +48,35 @@
             </div>
             <a href="/medicines" class="text-indigo-600 font-bold hover:underline">See Everything</a>
         </div>
+
+        @if(session()->has('success'))
+            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 px-6 py-4 rounded-2xl font-bold text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session()->has('error'))
+            <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-6 py-4 rounded-2xl font-bold text-sm">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach($latest_medicines as $medicine)
-            <div class="glass group rounded-[40px] overflow-hidden hover:shadow-2xl transition-all duration-500">
+            <div class="glass group rounded-[40px] overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full border-2 border-transparent hover:border-indigo-50">
                 <div class="h-60 overflow-hidden relative">
                     <img src="{{ $medicine->image ? asset('storage/'.$medicine->image) : 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80' }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute top-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-indigo-600">
                         {{ $medicine->type }}
                     </div>
                 </div>
-                <div class="p-8 space-y-4">
+                <div class="p-8 space-y-4 flex flex-col flex-1">
                     <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">{{ $medicine->category->name }}</div>
                     <h3 class="font-bold text-xl">{{ $medicine->name }}</h3>
-                    <div class="flex items-center justify-between pt-2">
+                    <div class="flex items-center justify-between pt-6 mt-auto">
                         <span class="text-2xl font-black text-indigo-600">${{ number_format($medicine->price, 2) }}</span>
-                        <a href="/medicines/{{ $medicine->slug }}" class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 p-3 rounded-2xl hover:bg-indigo-600 hover:text-white transition-all">
+                        <button wire:click="addToCart({{ $medicine->id }})" class="bg-indigo-600 text-white p-3 rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
