@@ -1,7 +1,7 @@
 <div class="space-y-6">
     <div class="flex items-center justify-between">
         <h2 class="text-3xl font-bold tracking-tight">Doctors</h2>
-        <button wire:click="openModal" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-200 dark:shadow-none">
+        <button wire:click="openModal" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-emerald-200 dark:shadow-none">
             Add Doctor
         </button>
     </div>
@@ -16,10 +16,10 @@
         @foreach($doctors as $doctor)
         <div class="glass p-6 rounded-3xl space-y-4">
             <div class="flex items-center space-x-4">
-                <img src="{{ $doctor->image ? asset('storage/'.$doctor->image) : 'https://ui-avatars.com/api/?name='.urlencode($doctor->name).'&color=4f46e5&background=EBF4FF' }}" class="w-16 h-16 rounded-2xl object-cover shadow-md">
+                <img src="{{ $doctor->image ? asset('storage/'.$doctor->image) : 'https://ui-avatars.com/api/?name='.urlencode($doctor->name).'&color=10b981&background=ecfdf5' }}" class="w-16 h-16 rounded-2xl object-cover shadow-md">
                 <div>
                     <h3 class="font-bold text-lg">{{ $doctor->name }}</h3>
-                    <p class="text-sm text-indigo-600 font-medium">{{ $doctor->specialization }}</p>
+                    <p class="text-sm text-emerald-600 font-medium">{{ $doctor->specialization }}</p>
                 </div>
             </div>
             <div class="text-sm text-slate-500">
@@ -50,26 +50,33 @@
             <form wire:submit.prevent="save" class="p-8 space-y-6">
                 <div>
                     <label class="block text-sm font-bold mb-2">Full Name</label>
-                    <input type="text" wire:model="name" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" wire:model="name" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500">
                     @error('name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-bold mb-2">Specialization</label>
-                    <input type="text" wire:model="specialization" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Cardiologist">
+                    <input type="text" wire:model="specialization" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500" placeholder="e.g. Cardiologist">
                     @error('specialization') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-bold mb-2">Experience</label>
-                    <input type="text" wire:model="experience" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500" placeholder="e.g. 10 Years">
+                    <input type="text" wire:model="experience" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500" placeholder="e.g. 10 Years">
                     @error('experience') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-bold mb-2">Profile Image</label>
-                    <input type="file" wire:model="image" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        @if ($image)
+                            <img src="{{ $image->temporaryUrl() }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg border-2 border-emerald-500">
+                        @elseif($doctor_id && ($old_doctor = \App\Models\Doctor::find($doctor_id)) && $old_doctor->image)
+                            <img src="{{ asset('storage/'.$old_doctor->image) }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg">
+                        @endif
+                        <input type="file" wire:model="image" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                    </div>
                     @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="pt-4">
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none transition-all">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-200 dark:shadow-none transition-all">
                         {{ $doctor_id ? 'Update Doctor' : 'Save Doctor' }}
                     </button>
                 </div>
@@ -78,3 +85,4 @@
     </div>
     @endif
 </div>
+

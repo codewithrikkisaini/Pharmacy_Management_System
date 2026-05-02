@@ -31,12 +31,12 @@
         }
 
         .dark .glass {
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(150, 156, 171, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .hero-gradient {
-            background: 
+            background:
                 radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(20, 184, 166, 0.05) 0px, transparent 50%),
                 #f8fafc;
@@ -58,8 +58,12 @@
             <div class="flex justify-between h-20">
                 <div class="flex items-center">
                     <a href="/" class="text-2xl font-black flex items-center gap-2 group">
-                        <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:rotate-12 transition-transform">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        <div
+                            class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:rotate-12 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
                         </div>
                         <span class="text-gradient">MediCare</span>
                     </a>
@@ -70,14 +74,15 @@
                             class="text-sm font-bold {{ request()->routeIs('medicines') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Medicines</a>
                         <a href="{{ route('doctors') }}"
                             class="text-sm font-bold {{ request()->routeIs('doctors') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Doctors</a>
-                        <a href="/contact" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-all">Contact</a>
+                        <a href="/contact"
+                            class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-all">Contact</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-6">
                     <!-- Cart Link -->
                     <a href="{{ route('cart') }}" class="relative group p-2">
-                        <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500 transition-all"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500 transition-all" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                         </svg>
@@ -94,17 +99,22 @@
                                 class="text-sm font-bold {{ request()->routeIs('my-orders') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">My
                                 Orders</a>
                             @if(auth()->user()->role == 'admin')
-                                <a href="{{ route('admin.dashboard') }}" class="text-sm font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100 hover:bg-emerald-100 transition-all">Admin</a>
+                                <a href="{{ route('admin.dashboard') }}"
+                                    class="text-sm font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100 hover:bg-emerald-100 transition-all">Admin</a>
                             @endif
                             <div class="flex flex-col items-end leading-none">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Account</span>
+                                <span
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Account</span>
                                 <span class="text-sm font-bold text-slate-700">{{ auth()->user()->name }}</span>
                             </div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit"
-                                    class="text-slate-400 hover:text-red-500 transition-all">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                <button type="submit" class="text-slate-400 hover:text-red-500 transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                        </path>
+                                    </svg>
                                 </button>
                             </form>
                         </div>
@@ -128,8 +138,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-16">
             <div class="space-y-8">
                 <a href="/" class="text-3xl font-black flex items-center gap-2">
-                    <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    <div
+                        class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
                     </div>
                     <span class="text-white">Medi<span class="text-emerald-500">Care</span></span>
                 </a>
@@ -156,13 +170,21 @@
                 <ul class="space-y-6 text-sm text-slate-400 font-bold">
                     <li class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
                         </div>
                         support@medicare.com
                     </li>
                     <li class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                </path>
+                            </svg>
                         </div>
                         +1 (555) 123-4567
                     </li>

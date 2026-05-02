@@ -2,14 +2,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-                <h1 class="text-5xl font-black mb-8 leading-tight">Get in touch <span class="text-indigo-600">with us</span></h1>
+                <h1 class="text-5xl font-black mb-8 leading-tight">Get in touch <span class="text-emerald-600">with us</span></h1>
                 <p class="text-slate-500 text-lg font-medium mb-12 leading-relaxed">
                     Have questions about your prescription or need help with an order? Our team of certified pharmacists is here to help you 24/7.
                 </p>
 
                 <div class="space-y-10">
                     <div class="flex items-center gap-6">
-                        <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+                        <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </div>
                         <div>
@@ -51,24 +51,25 @@
                     <form wire:submit="sendMessage" class="space-y-6">
                         <div>
                             <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Your Name</label>
-                            <input type="text" wire:model="name" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" wire:model="name" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-emerald-500">
                             @error('name') <span class="text-red-500 text-xs font-bold mt-2 block">{{ $message }}</span> @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Email Address</label>
-                            <input type="email" wire:model="email" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-500">
+                            <input type="email" wire:model="email" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-emerald-500">
                             @error('email') <span class="text-red-500 text-xs font-bold mt-2 block">{{ $message }}</span> @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Message</label>
-                            <textarea wire:model="message" rows="5" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-500"></textarea>
+                            <textarea wire:model="message" rows="5" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-emerald-500"></textarea>
                             @error('message') <span class="text-red-500 text-xs font-bold mt-2 block">{{ $message }}</span> @enderror
                         </div>
 
-                        <button type="submit" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all">Send Message</button>
+                        <button type="submit" class="w-full bg-emerald-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all">Send Message</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

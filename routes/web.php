@@ -19,26 +19,9 @@ use App\Livewire\Admin\Orders as AdminOrders;
 use App\Livewire\Admin\Users as AdminUsers;
 use App\Livewire\Admin\Appointments as AdminAppointments;
 use App\Livewire\Admin\Messages as AdminMessages;
-
-// Temporary Migration Route
-Route::get('/migrate-db', function() {
-    try {
-        \Illuminate\Support\Facades\DB::statement("
-            CREATE TABLE IF NOT EXISTS contact_messages (
-                id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                email VARCHAR(255) NOT NULL,
-                message TEXT NOT NULL,
-                is_read BOOLEAN DEFAULT FALSE,
-                created_at TIMESTAMP NULL,
-                updated_at TIMESTAMP NULL
-            )
-        ");
-        return "Table 'contact_messages' created successfully using raw SQL!";
-    } catch (\Exception $e) {
-        return "Failed to create table: " . $e->getMessage();
-    }
-});
+use App\Livewire\Admin\Banners as AdminBanners;
+use App\Livewire\Admin\Blogs as AdminBlogs;
+use App\Livewire\Admin\Settings as AdminSettings;
 
 // Frontend Routes
 Route::get('/', Home::class)->name('home');
@@ -50,6 +33,18 @@ Route::get('/cart', Cart::class)->name('cart');
 // Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout', Checkout::class)->name('checkout');
+    
+    // Temporary Scripts
+    Route::get('/migrate-db', function() {
+        Artisan::call('migrate', ['--force' => true]);
+        return Artisan::output();
+    });
+
+    Route::get('/storage-link', function() {
+        Artisan::call('storage:link');
+        return Artisan::output();
+    });
+
     Route::get('/my-orders', MyOrders::class)->name('my-orders');
     
     // Admin Routes
@@ -62,6 +57,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/users', AdminUsers::class)->name('users');
         Route::get('/appointments', AdminAppointments::class)->name('appointments');
         Route::get('/messages', AdminMessages::class)->name('messages');
+        Route::get('/banners', AdminBanners::class)->name('banners');
+        Route::get('/blogs', AdminBlogs::class)->name('blogs');
+        Route::get('/settings', AdminSettings::class)->name('settings');
     });
 
     // User Profile (from Breeze)

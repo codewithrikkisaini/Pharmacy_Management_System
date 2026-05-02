@@ -10,7 +10,7 @@
                     <img src="{{ $item['image'] ? asset('storage/'.$item['image']) : 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80' }}" class="w-24 h-24 rounded-2xl object-cover">
                     <div class="flex-1">
                         <h3 class="font-bold text-lg">{{ $item['name'] }}</h3>
-                        <p class="text-indigo-600 font-black">${{ number_format($item['price'], 2) }}</p>
+                        <p class="text-emerald-600 font-black">${{ number_format($item['price'], 2) }}</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <button wire:click="decrementQuantity({{ $id }})" class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center font-bold hover:bg-slate-200 transition-colors">-</button>
@@ -24,12 +24,12 @@
                 </div>
                 @empty
                 <div class="glass p-20 rounded-[40px] text-center">
-                    <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-6 text-indigo-300">
+                    <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-300">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-black text-slate-900">Your cart is empty</h3>
                     <p class="text-slate-500 font-medium mt-2 mb-8">Looks like you haven't added anything to your cart yet.</p>
-                    <a href="{{ route('medicines') }}" class="inline-block bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-sm shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all">Start Shopping</a>
+                    <a href="{{ route('medicines') }}" class="inline-block bg-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-sm shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all">Start Shopping</a>
                 </div>
                 @endforelse
             </div>
@@ -51,15 +51,15 @@
                         </div>
                         <div class="pt-4 border-t flex justify-between items-center">
                             <span class="font-bold">Total</span>
-                            <span class="text-3xl font-black text-indigo-600">${{ number_format($total, 2) }}</span>
+                            <span class="text-3xl font-black text-emerald-600">${{ number_format($total, 2) }}</span>
                         </div>
                     </div>
 
                     @auth
-                        <a href="{{ route('checkout') }}" class="w-full block text-center bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all">Proceed to Checkout</a>
+                        <a href="{{ route('checkout') }}" class="w-full block text-center bg-emerald-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all">Proceed to Checkout</a>
                     @else
-                        <div class="bg-indigo-50 p-6 rounded-2xl mb-6">
-                            <p class="text-xs text-indigo-600 font-bold text-center leading-relaxed">Please login to complete your order and track your delivery.</p>
+                        <div class="bg-emerald-50 p-6 rounded-2xl mb-6">
+                            <p class="text-xs text-emerald-600 font-bold text-center leading-relaxed">Please login to complete your order and track your delivery.</p>
                         </div>
                         <a href="{{ route('login') }}" class="w-full block text-center bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all">Login to Continue</a>
                     @endauth
@@ -75,3 +75,4 @@
         </div>
     </div>
 </div>
+
