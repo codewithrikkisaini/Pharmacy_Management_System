@@ -51,7 +51,7 @@
                         <td class="px-8 py-5">
                             <div class="flex items-center space-x-4">
                                 <div class="w-14 h-14 rounded-2xl overflow-hidden shadow-sm border border-slate-100 group-hover:rotate-3 transition-transform duration-300">
-                                    <img src="{{ $medicine->image ? asset('storage/'.$medicine->image) : 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80' }}" class="w-full h-full object-cover">
+                                    <img src="{{ $medicine->image ? Storage::url($medicine->image) : 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80' }}" class="w-full h-full object-cover">
                                 </div>
                                 <div>
                                     <div class="font-bold text-slate-900">{{ $medicine->name }}</div>
@@ -159,7 +159,7 @@
                         @if ($image)
                             <img src="{{ $image->temporaryUrl() }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg border-2 border-emerald-500">
                         @elseif($medicine_id && ($old_medicine = \App\Models\Medicine::find($medicine_id)) && $old_medicine->image)
-                            <img src="{{ asset('storage/'.$old_medicine->image) }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg">
+                            <img src="{{ Storage::url($old_medicine->image) }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg">
                         @endif
                         <input type="file" wire:model="image" class="text-sm font-bold text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-all">
                     </div>

@@ -13,7 +13,7 @@
         @foreach($banners as $banner)
         <div class="glass rounded-[32px] overflow-hidden group">
             <div class="h-48 relative overflow-hidden">
-                <img src="{{ asset('storage/'.$banner->image) }}" class="w-full h-full object-cover">
+                <img src="{{ Storage::url($banner->image) }}" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                     <button wire:click="edit({{ $banner->id }})" class="p-3 bg-white rounded-xl text-emerald-600 hover:scale-110 transition-transform">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>

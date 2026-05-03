@@ -4,8 +4,8 @@
             <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Order Management</h2>
             <p class="text-sm font-medium text-slate-500 mt-1">Monitor sales and handle customer prescriptions.</p>
         </div>
-        <button wire:click="openCreateModal" class="bg-sky-500 hover:bg-sky-600 text-white px-8 py-3.5 rounded-2xl font-bold transition-all shadow-lg shadow-sky-100 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+        <button wire:click="openCreateModal" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-2xl font-black transition-all shadow-xl shadow-emerald-100 flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
             Create New Order
         </button>
     </div>
@@ -21,12 +21,12 @@
         <div class="space-y-2">
             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Search</label>
             <div class="relative">
-                <input type="text" wire:model.live="search" placeholder="Order # or Customer..." class="w-full bg-slate-50 border-none rounded-xl px-5 py-3 text-sm focus:ring-2 focus:ring-sky-500">
+                <input type="text" wire:model.live="search" placeholder="Order # or Customer..." class="w-full bg-slate-50 border-none rounded-xl px-5 py-3 text-sm focus:ring-2 focus:ring-emerald-500 font-bold">
             </div>
         </div>
         <div class="space-y-2">
             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Status</label>
-            <select wire:model.live="status_filter" class="w-full bg-slate-50 border-none rounded-xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-sky-500">
+            <select wire:model.live="status_filter" class="w-full bg-slate-50 border-none rounded-xl px-5 py-3 text-sm font-black focus:ring-2 focus:ring-emerald-500">
                 <option value="">All Statuses</option>
                 <option value="pending">Pending</option>
                 <option value="processing">Processing</option>
@@ -75,10 +75,10 @@
                             <div class="text-[9px] font-black uppercase text-indigo-500">{{ $order->payment_method }}</div>
                         </td>
                         <td class="px-8 py-6 text-center">
-                            <select wire:change="updateStatus({{ $order->id }}, $event.target.value)" class="text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border-none ring-1 ring-slate-100 focus:ring-2 focus:ring-sky-500 cursor-pointer 
+                            <select wire:change="updateStatus({{ $order->id }}, $event.target.value)" class="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl border-none ring-1 ring-slate-100 focus:ring-2 focus:ring-emerald-500 cursor-pointer 
                                 {{ $order->status == 'completed' ? 'bg-emerald-50 text-emerald-600' : '' }}
                                 {{ $order->status == 'pending' ? 'bg-amber-50 text-amber-600' : '' }}
-                                {{ $order->status == 'processing' ? 'bg-sky-50 text-sky-600' : '' }}
+                                {{ $order->status == 'processing' ? 'bg-blue-50 text-blue-600' : '' }}
                                 {{ $order->status == 'rejected' ? 'bg-red-50 text-red-600' : '' }}">
                                 <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
@@ -189,7 +189,7 @@
             </div>
 
             <div class="p-10 border-t bg-slate-50/30">
-                <button wire:click="store" class="w-full bg-sky-500 hover:bg-sky-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-sky-100 transition-all">
+                <button wire:click="store" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-5 rounded-2xl shadow-2xl shadow-emerald-100 transition-all">
                     Finalize & Place Order
                 </button>
             </div>

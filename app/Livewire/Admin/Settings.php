@@ -10,32 +10,42 @@ class Settings extends Component
 {
     use WithFileUploads;
 
-    public $site_name, $site_email, $site_phone, $site_address, $site_logo;
+    public $site_name;
+    public $site_email;
+    public $site_phone;
+    public $site_address;
+    public $site_description;
+    public $footer_text;
+    public $site_logo;
     public $new_logo;
 
     public function mount()
     {
-        $this->site_name = Setting::where('key', 'site_name')->first()?->value ?? 'MediCare';
-        $this->site_email = Setting::where('key', 'site_email')->first()?->value ?? 'support@medicare.com';
-        $this->site_phone = Setting::where('key', 'site_phone')->first()?->value ?? '+1 (555) 123-4567';
-        $this->site_address = Setting::where('key', 'site_address')->first()?->value ?? '123 Medical Ave, Health City';
-        $this->site_logo = Setting::where('key', 'site_logo')->first()?->value;
+        $this->site_name = Setting::get('site_name', 'MediCare');
+        $this->site_email = Setting::get('site_email', 'support@medicare.com');
+        $this->site_phone = Setting::get('site_phone', '+1 (555) 123-4567');
+        $this->site_address = Setting::get('site_address', '123 Medical Plaza, Health City');
+        $this->site_description = Setting::get('site_description', '');
+        $this->footer_text = Setting::get('footer_text', 'MediCare – All rights reserved.');
+        $this->site_logo = Setting::get('site_logo');
     }
 
     public function save()
     {
-        Setting::updateOrCreate(['key' => 'site_name'], ['value' => $this->site_name]);
-        Setting::updateOrCreate(['key' => 'site_email'], ['value' => $this->site_email]);
-        Setting::updateOrCreate(['key' => 'site_phone'], ['value' => $this->site_phone]);
-        Setting::updateOrCreate(['key' => 'site_address'], ['value' => $this->site_address]);
+        Setting::set('site_name', $this->site_name);
+        Setting::set('site_email', $this->site_email);
+        Setting::set('site_phone', $this->site_phone);
+        Setting::set('site_address', $this->site_address);
+        Setting::set('site_description', $this->site_description);
+        Setting::set('footer_text', $this->footer_text);
 
         if ($this->new_logo) {
             $logoPath = $this->new_logo->store('settings', 'public');
-            Setting::updateOrCreate(['key' => 'site_logo'], ['value' => $logoPath]);
+            Setting::set('site_logo', $logoPath);
             $this->site_logo = $logoPath;
         }
 
-        session()->flash('message', 'Settings updated successfully.');
+        session()->flash('message', 'Settings updated successfully!');
     }
 
     public function render()

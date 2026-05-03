@@ -58,14 +58,17 @@
             <div class="flex justify-between h-20">
                 <div class="flex items-center">
                     <a href="/" class="text-2xl font-black flex items-center gap-2 group">
-                        <div
-                            class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:rotate-12 transition-transform">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                            </svg>
+                        <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:rotate-12 transition-transform overflow-hidden">
+                            @if(!empty($site_settings->site_logo))
+                                <img src="{{ Storage::url($site_settings->site_logo) }}" class="w-full h-full object-cover">
+                            @else
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            @endif
                         </div>
-                        <span class="text-gradient">MediCare</span>
+                        <span class="text-gradient">{{ $site_settings->site_name ?? 'MediCare' }}</span>
                     </a>
                     <div class="hidden md:ml-10 md:flex md:space-x-10">
                         <a href="{{ route('home') }}"
@@ -145,10 +148,9 @@
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                     </div>
-                    <span class="text-white">Medi<span class="text-emerald-500">Care</span></span>
+                    <span class="text-white">{{ $site_settings->site_name ?? 'Medi' }}<span class="text-emerald-500">{{ $site_settings->site_suffix ?? 'Care' }}</span></span>
                 </a>
-                <p class="text-slate-400 text-sm leading-relaxed font-medium">Your trusted partner for all medical
-                    needs. Quality medicines delivered with care and professional integrity.</p>
+                <p class="text-slate-400 text-sm leading-relaxed font-medium">{{ $site_settings->site_description ?? 'Your trusted partner for all medical needs.' }}</p>
             </div>
             <div>
                 <h3 class="font-black text-xs uppercase tracking-[0.2em] text-slate-500 mb-8">Quick Links</h3>
@@ -176,7 +178,7 @@
                                 </path>
                             </svg>
                         </div>
-                        support@medicare.com
+                        {{ $site_settings->site_email ?? 'support@medicare.com' }}
                     </li>
                     <li class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-500">
@@ -186,14 +188,14 @@
                                 </path>
                             </svg>
                         </div>
-                        +1 (555) 123-4567
+                        {{ $site_settings->site_phone ?? '+1 (555) 123-4567' }}
                     </li>
                 </ul>
             </div>
         </div>
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 pt-10 border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">
-            &copy; {{ date('Y') }} MediCare – Pharmacy Management System. All rights reserved.
+            &copy; {{ date('Y') }} {{ $site_settings->footer_text ?? 'MediCare – Pharmacy Management System. All rights reserved.' }}
         </div>
     </footer>
 

@@ -40,7 +40,7 @@
                     <tr class="hover:bg-slate-50/30 transition-colors group">
                         <td class="px-8 py-5">
                             <div class="w-14 h-14 rounded-2xl overflow-hidden shadow-sm border border-slate-100 group-hover:scale-105 transition-transform duration-300">
-                                <img src="{{ $category->image ? asset('storage/'.$category->image) : 'https://ui-avatars.com/api/?name='.urlencode($category->name).'&color=10b981&background=ecfdf5' }}" class="w-full h-full object-cover">
+                                <img src="{{ $category->image ? Storage::url($category->image) : 'https://ui-avatars.com/api/?name='.urlencode($category->name).'&color=10b981&background=ecfdf5' }}" class="w-16 h-16 rounded-2xl object-cover shadow-md">
                             </div>
                         </td>
                         <td class="px-8 py-5">
@@ -101,7 +101,7 @@
                             @if ($image)
                                 <img src="{{ $image->temporaryUrl() }}" class="w-full h-full object-cover">
                             @elseif($category_id && ($old_cat = \App\Models\Category::find($category_id)) && $old_cat->image)
-                                <img src="{{ asset('storage/'.$old_cat->image) }}" class="w-full h-full object-cover">
+                                <img src="{{ Storage::url($old_cat->image) }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg">
                             @else
                                 <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             @endif

@@ -1,9 +1,9 @@
 <div class="space-y-8">
     <!-- Admin Command Center Banner -->
-    <div class="gradient-banner rounded-[32px] p-10 text-white relative overflow-hidden shadow-2xl shadow-indigo-900/20">
+    <div class="bg-slate-900 rounded-[50px] p-12 text-white relative overflow-hidden shadow-2xl shadow-slate-900/20">
         <div class="relative z-10 flex flex-col lg:flex-row justify-between gap-10">
             <div class="space-y-6 lg:w-3/5">
-                <div class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400">Admin Command Center</div>
+                <div class="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Business Intelligence Console</div>
                 <h2 class="text-4xl font-extrabold tracking-tight">Dynamic business overview <br>for your store</h2>
                 <p class="text-slate-400 text-sm max-w-lg leading-relaxed font-medium">
                     Track live orders, stock verification, medicine categories, and low-stock alerts from one single screen.
@@ -22,10 +22,10 @@
                     <div class="text-2xl font-black">${{ number_format($stats['total_sales'], 2) }}</div>
                     <div class="text-[9px] text-emerald-400 font-bold mt-1">Verified collections</div>
                 </div>
-                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
-                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">This Month</div>
+                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-sm">
+                    <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Monthly Goal</div>
                     <div class="text-2xl font-black">${{ number_format($stats['total_sales'], 2) }}</div>
-                    <div class="text-[9px] text-indigo-400 font-bold mt-1">Current month revenue</div>
+                    <div class="text-[9px] text-emerald-500 font-bold mt-1">Target Achievement</div>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Orders Today</div>
@@ -181,7 +181,7 @@
     <div class="bg-white rounded-[32px] card-shadow overflow-hidden">
         <div class="p-8 border-b flex justify-between items-center">
             <h3 class="text-lg font-black text-slate-900">Recent Order Activity</h3>
-            <a href="{{ route('admin.orders') }}" class="text-xs font-bold text-indigo-600 hover:underline">View All Orders &rarr;</a>
+            <a href="{{ route('admin.orders') }}" class="text-xs font-bold text-emerald-600 hover:underline">View All Orders &rarr;</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left">

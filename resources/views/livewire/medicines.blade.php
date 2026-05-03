@@ -81,7 +81,9 @@
                     @forelse($medicines as $medicine)
                     <div class="glass group rounded-[48px] overflow-hidden hover:shadow-3xl transition-all duration-700 flex flex-col h-full border border-transparent hover:border-emerald-100/50">
                         <div class="h-72 overflow-hidden relative">
-                            <img src="{{ $medicine->image ? asset('storage/'.$medicine->image) : 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80' }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                            <img src="{{ $medicine->image ? Storage::url($medicine->image) : 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80' }}" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'"
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                             <div class="absolute top-8 right-8 bg-white/95 backdrop-blur px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-emerald-600 shadow-xl shadow-slate-900/5">
                                 {{ $medicine->type }}
                             </div>

@@ -16,7 +16,7 @@
         @foreach($doctors as $doctor)
         <div class="glass p-6 rounded-3xl space-y-4">
             <div class="flex items-center space-x-4">
-                <img src="{{ $doctor->image ? asset('storage/'.$doctor->image) : 'https://ui-avatars.com/api/?name='.urlencode($doctor->name).'&color=10b981&background=ecfdf5' }}" class="w-16 h-16 rounded-2xl object-cover shadow-md">
+                <img src="{{ $doctor->image ? Storage::url($doctor->image) : 'https://ui-avatars.com/api/?name='.urlencode($doctor->name).'&color=10b981&background=ecfdf5' }}" class="w-16 h-16 rounded-2xl object-cover shadow-md">
                 <div>
                     <h3 class="font-bold text-lg">{{ $doctor->name }}</h3>
                     <p class="text-sm text-emerald-600 font-medium">{{ $doctor->specialization }}</p>
@@ -69,7 +69,7 @@
                         @if ($image)
                             <img src="{{ $image->temporaryUrl() }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg border-2 border-emerald-500">
                         @elseif($doctor_id && ($old_doctor = \App\Models\Doctor::find($doctor_id)) && $old_doctor->image)
-                            <img src="{{ asset('storage/'.$old_doctor->image) }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg">
+                            <img src="{{ Storage::url($old_doctor->image) }}" class="w-20 h-20 rounded-2xl object-cover shadow-lg">
                         @endif
                         <input type="file" wire:model="image" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
                     </div>

@@ -45,11 +45,13 @@ class Home extends Component
         $banners = \App\Models\Banner::where('status', true)->orderBy('order')->get();
         $categories = Category::all();
         $latest_medicines = Medicine::with('category')->where('status', true)->latest()->take(8)->get();
+        $doctors = \App\Models\Doctor::where('status', true)->latest()->take(4)->get();
 
         return view('livewire.home', [
             'banners' => $banners,
             'categories' => $categories,
             'latest_medicines' => $latest_medicines,
+            'doctors' => $doctors,
         ])->layout('layouts.app');
     }
 }

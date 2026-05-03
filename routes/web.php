@@ -29,6 +29,10 @@ Route::get('/medicines', Medicines::class)->name('medicines');
 Route::get('/doctors', Doctors::class)->name('doctors');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/cart', Cart::class)->name('cart');
+Route::get('/blogs', Blogs::class)->name('blogs');
+Route::get('/blog/{slug}', BlogDetail::class)->name('blog.detail');
+Route::get('/about', About::class)->name('about');
+Route::get('/faq', Faq::class)->name('faq');
 
 // Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
