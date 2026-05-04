@@ -8,6 +8,13 @@ use App\Models\Medicine;
 
 class Home extends Component
 {
+    public $search = '';
+
+    public function performSearch()
+    {
+        return redirect()->route('medicines', ['search' => $this->search]);
+    }
+
     public function addToCart($medicineId)
     {
         $medicine = Medicine::find($medicineId);
@@ -38,6 +45,13 @@ class Home extends Component
         session()->put('cart', $cart);
         $this->dispatch('cartUpdated');
         session()->flash('success', 'Added to cart successfully!');
+    }
+
+    public function mount()
+    {
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     public function render()

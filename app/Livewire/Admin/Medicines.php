@@ -13,7 +13,7 @@ class Medicines extends Component
 {
     use WithFileUploads, WithPagination;
 
-    public $name, $category_id, $description, $price, $stock, $image, $type, $medicine_id;
+    public $name, $category_id, $description, $price, $stock, $expiry_date, $image, $type, $medicine_id;
     public $isModalOpen = false;
     public $search = '';
 
@@ -25,6 +25,7 @@ class Medicines extends Component
         'stock' => 'required|integer|min:0',
         'image' => 'nullable|image|max:1024',
         'type' => 'required|string',
+        'expiry_date' => 'nullable|date',
     ];
 
     public function openModal()
@@ -45,6 +46,7 @@ class Medicines extends Component
         $this->description = '';
         $this->price = '';
         $this->stock = '';
+        $this->expiry_date = '';
         $this->image = null;
         $this->type = '';
         $this->medicine_id = null;
@@ -63,6 +65,7 @@ class Medicines extends Component
             'description' => $this->description,
             'price' => $this->price,
             'stock' => $this->stock,
+            'expiry_date' => $this->expiry_date,
             'image' => $imagePath ?? ($this->medicine_id ? Medicine::find($this->medicine_id)->image : null),
             'type' => $this->type,
         ]);
@@ -82,6 +85,7 @@ class Medicines extends Component
         $this->price = $medicine->price;
         $this->stock = $medicine->stock;
         $this->type = $medicine->type;
+        $this->expiry_date = $medicine->expiry_date;
         $this->isModalOpen = true;
     }
 

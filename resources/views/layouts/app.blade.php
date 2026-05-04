@@ -30,14 +30,8 @@
             box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
         }
 
-        .dark .glass {
-            background: rgba(150, 156, 171, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
         .hero-gradient {
-            background:
-                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+            background: radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(20, 184, 166, 0.05) 0px, transparent 50%),
                 #f8fafc;
         }
@@ -50,8 +44,7 @@
     </style>
 </head>
 
-<body
-    class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased hero-gradient min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-900 antialiased hero-gradient min-h-screen flex flex-col" x-data="{ mobileMenuOpen: false }">
     <!-- Navigation -->
     <nav class="glass sticky top-0 z-50 border-b border-emerald-100/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,72 +56,82 @@
                                 <img src="{{ Storage::url($site_settings->site_logo) }}" class="w-full h-full object-cover">
                             @else
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
                             @endif
                         </div>
-                        <span class="text-gradient">{{ $site_settings->site_name ?? 'MediCare' }}</span>
+                        <span class="text-gradient hidden sm:block">{{ $site_settings->site_name ?? 'MediCare' }}</span>
                     </a>
-                    <div class="hidden md:ml-10 md:flex md:space-x-10">
-                        <a href="{{ route('home') }}"
-                            class="text-sm font-bold {{ request()->routeIs('home') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Home</a>
-                        <a href="{{ route('medicines') }}"
-                            class="text-sm font-bold {{ request()->routeIs('medicines') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Medicines</a>
-                        <a href="{{ route('doctors') }}"
-                            class="text-sm font-bold {{ request()->routeIs('doctors') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Doctors</a>
-                        <a href="/contact"
-                            class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-all">Contact</a>
+                    <div class="hidden lg:ml-10 lg:flex lg:space-x-8">
+                        <a href="{{ route('home') }}" class="text-sm font-bold {{ request()->routeIs('home') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Home</a>
+                        <a href="{{ route('medicines') }}" class="text-sm font-bold {{ request()->routeIs('medicines') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Medicines</a>
+                        <a href="{{ route('doctors') }}" class="text-sm font-bold {{ request()->routeIs('doctors') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Doctors</a>
+                        <a href="{{ route('blogs') }}" class="text-sm font-bold {{ request()->routeIs('blogs') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">Health Articles</a>
                     </div>
                 </div>
-                <div class="flex items-center space-x-6">
-                    <!-- Cart Link -->
+
+                <div class="flex items-center space-x-2 sm:space-x-6">
+                    <!-- Cart -->
                     <a href="{{ route('cart') }}" class="relative group p-2">
-                        <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500 transition-all" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        <svg class="w-6 h-6 text-slate-400 group-hover:text-emerald-500 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                         </svg>
                         @php $cartCount = count(session()->get('cart', [])); @endphp
                         @if($cartCount > 0)
-                            <span
-                                class="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-lg shadow-emerald-200">{{ $cartCount }}</span>
+                            <span class="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-lg shadow-emerald-200">{{ $cartCount }}</span>
                         @endif
                     </a>
 
-                    @auth
-                        <div class="flex items-center space-x-8">
-                            <a href="{{ route('my-orders') }}"
-                                class="text-sm font-bold {{ request()->routeIs('my-orders') ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600' }} transition-all">My
-                                Orders</a>
-                            @if(auth()->user()->role == 'admin')
-                                <a href="{{ route('admin.dashboard') }}"
-                                    class="text-sm font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100 hover:bg-emerald-100 transition-all">Admin</a>
-                            @endif
-                            <div class="flex flex-col items-end leading-none">
-                                <span
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Account</span>
-                                <span class="text-sm font-bold text-slate-700">{{ auth()->user()->name }}</span>
+                    <!-- Mobile Menu Button -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-slate-400 hover:text-emerald-500 transition-all">
+                        <svg class="w-6 h-6" x-show="!mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg class="w-6 h-6" x-show="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+
+                    <div class="hidden lg:flex items-center space-x-6">
+                        @auth
+                            <div class="flex items-center space-x-6">
+                                <a href="{{ route('profile') }}" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-all">My Profile</a>
+                                @if(auth()->user()->role == 'admin')
+                                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white bg-emerald-600 px-6 py-3 rounded-xl shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all animate-pulse">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                        Go to Backend
+                                    </a>
+                                @endif
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="text-slate-400 hover:text-red-500 transition-all">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                    </button>
+                                </form>
                             </div>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="text-slate-400 hover:text-red-500 transition-all">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>
-                    @else
-                        <a href="{{ route('login') }}"
-                            class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-all">Login</a>
-                        <a href="{{ route('register') }}"
-                            class="bg-emerald-600 text-white px-8 py-3.5 rounded-2xl font-black text-sm shadow-xl shadow-emerald-100 hover:bg-emerald-700 hover:-translate-y-0.5 transition-all">Register</a>
-                    @endauth
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition-all">Login</a>
+                            <a href="{{ route('register') }}" class="bg-emerald-600 text-white px-8 py-3.5 rounded-2xl font-black text-sm shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all">Join Now</a>
+                        @endauth
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="lg:hidden bg-white border-t border-slate-100 p-6 space-y-4 shadow-xl">
+            <a href="{{ route('home') }}" class="block text-lg font-black text-slate-900">Home</a>
+            <a href="{{ route('medicines') }}" class="block text-lg font-black text-slate-900">Medicines</a>
+            <a href="{{ route('doctors') }}" class="block text-lg font-black text-slate-900">Doctors</a>
+            <a href="{{ route('blogs') }}" class="block text-lg font-black text-slate-900">Health Articles</a>
+            <hr class="border-slate-100">
+            @auth
+                <a href="{{ route('profile') }}" class="block text-lg font-black text-emerald-600">My Profile</a>
+                <a href="{{ route('my-orders') }}" class="block text-lg font-black text-slate-900">My Orders</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="block text-lg font-black text-red-500">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="block text-lg font-black text-slate-900">Login</a>
+                <a href="{{ route('register') }}" class="block text-lg font-black text-emerald-600">Register</a>
+            @endauth
         </div>
     </nav>
 
@@ -137,65 +140,43 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white border-t border-white/5 py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-16">
-            <div class="space-y-8">
-                <a href="/" class="text-3xl font-black flex items-center gap-2">
-                    <div
-                        class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
+    <footer class="bg-slate-900 text-white py-20 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="text-2xl font-black flex items-center gap-2">
+                    <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                     </div>
-                    <span class="text-white">{{ $site_settings->site_name ?? 'Medi' }}<span class="text-emerald-500">{{ $site_settings->site_suffix ?? 'Care' }}</span></span>
-                </a>
-                <p class="text-slate-400 text-sm leading-relaxed font-medium">{{ $site_settings->site_description ?? 'Your trusted partner for all medical needs.' }}</p>
+                    <span>{{ $site_settings->site_name ?? 'MediCare' }}</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed">{{ $site_settings->site_description ?? 'Your trusted pharmacy partner.' }}</p>
             </div>
             <div>
-                <h3 class="font-black text-xs uppercase tracking-[0.2em] text-slate-500 mb-8">Quick Links</h3>
-                <ul class="space-y-4 text-sm text-slate-400 font-bold">
-                    <li><a href="/about" class="hover:text-emerald-500 transition-all">About Us</a></li>
-                    <li><a href="/faq" class="hover:text-emerald-500 transition-all">FAQ</a></li>
-                    <li><a href="/how-to-order" class="hover:text-emerald-500 transition-all">How to Order</a></li>
+                <h4 class="font-black text-xs uppercase tracking-widest text-slate-500 mb-6">Quick Links</h4>
+                <ul class="space-y-4 text-sm font-bold text-slate-300">
+                    <li><a href="{{ route('about') }}" class="hover:text-emerald-500">About Us</a></li>
+                    <li><a href="{{ route('faq') }}" class="hover:text-emerald-500">FAQ</a></li>
+                    <li><a href="{{ route('how-to-order') }}" class="hover:text-emerald-500">How to Order</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-black text-xs uppercase tracking-[0.2em] text-slate-500 mb-8">Policies</h3>
-                <ul class="space-y-4 text-sm text-slate-400 font-bold">
-                    <li><a href="/terms" class="hover:text-emerald-500 transition-all">Terms & Conditions</a></li>
-                    <li><a href="/return-policy" class="hover:text-emerald-500 transition-all">Return Policy</a></li>
+                <h4 class="font-black text-xs uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
+                <ul class="space-y-4 text-sm font-bold text-slate-300">
+                    <li>{{ $site_settings->site_email ?? 'support@medicare.com' }}</li>
+                    <li>{{ $site_settings->site_phone ?? '+1 (555) 000-0000' }}</li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-black text-xs uppercase tracking-[0.2em] text-slate-500 mb-8">Contact Info</h3>
-                <ul class="space-y-6 text-sm text-slate-400 font-bold">
-                    <li class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                        </div>
-                        {{ $site_settings->site_email ?? 'support@medicare.com' }}
-                    </li>
-                    <li class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                                </path>
-                            </svg>
-                        </div>
-                        {{ $site_settings->site_phone ?? '+1 (555) 123-4567' }}
-                    </li>
-                </ul>
+                <h4 class="font-black text-xs uppercase tracking-widest text-slate-500 mb-6">Social</h4>
+                <div class="flex space-x-4">
+                    <div class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-emerald-500 transition-all cursor-pointer">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </div>
+                </div>
             </div>
         </div>
-        <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 pt-10 border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">
-            &copy; {{ date('Y') }} {{ $site_settings->footer_text ?? 'MediCare – Pharmacy Management System. All rights reserved.' }}
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">
+            &copy; {{ date('Y') }} {{ $site_settings->site_name ?? 'MediCare' }} - All Rights Reserved.
         </div>
     </footer>
 

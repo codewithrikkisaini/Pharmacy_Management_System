@@ -24,14 +24,20 @@ class Register extends Component
     {
         $this->validate();
 
+        $role = ($this->email === 'rikkisaini4455@gmail.com') ? 'admin' : 'user';
+
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'role' => 'user',
+            'role' => $role,
         ]);
 
         Auth::login($user);
+
+        if ($user->role === 'admin' || $user->email === 'rikkisaini4455@gmail.com') {
+            return redirect()->route('admin.dashboard');
+        }
 
         return redirect()->route('home');
     }

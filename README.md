@@ -2,68 +2,64 @@
 
 A premium, full-stack Pharmacy Management System built with Laravel 13, Livewire, and Tailwind CSS.
 
-## Features
+## 🔐 Key Features
 
 ### 🔐 Authentication System
-- Role-based access (Admin & User)
-- Modern Login & Register pages
-- Protected routes with Admin Middleware
+- **Role-based access**: Dedicated flows for Admin & Customers.
+- **Premium UI**: Modern Login & Register pages with Glassmorphism effects.
+- **Security**: Robust session management and role-based middleware protection.
 
-### 🏥 Admin Panel
-- **Dashboard**: Real-time analytics with Chart.js.
-- **Medicines**: CRUD for inventory with image upload.
-- **Categories**: Dynamic category management.
-- **Doctors**: Manage specialist profiles.
-- **Appointments**: View and manage patient bookings.
-- **Orders**: Tracking and status updates.
+### 🏥 Admin Panel (Backend)
+- **Interactive Dashboard**: Real-time business analytics with Chart.js.
+- **Inventory Management**: Full CRUD for Medicines with category association and image uploads.
+- **Expiry Tracking**: Visual indicators for expired or near-expiry medicines.
+- **Doctor Management**: Manage specialist profiles and availability.
+- **Order Tracking**: Complete lifecycle management from 'Pending' to 'In Transit'.
+- **Content CMS**: Manage homepage banners and health articles (blogs).
 
-### 💊 User Panel
-- **Homepage**: Clean, responsive design with category filters.
-- **Medicine Catalog**: Search and browse medicines.
-- **Doctor Booking**: View specialists and request appointments.
-- **Store Pickup**: Unique Order ID generation for local pickup.
+### 💊 Customer Panel (Frontend)
+- **Product Discovery**: Global search bar and category-based filtering.
+- **Detailed View**: Premium product details page with stock status and related items.
+- **Appointment Booking**: Request appointments with certified specialists.
+- **User Profile**: Self-service profile management and security settings.
 
-## Tech Stack
-- **Backend**: Laravel 13 (MVC)
-- **Frontend**: Livewire (Functional) + Tailwind CSS
-- **Database**: MySQL
-- **Charts**: Chart.js
+## 🛠️ Tech Stack
+- **Framework**: Laravel 13 (Latest Stable)
+- **Frontend Logic**: Livewire (Functional Components)
+- **Styling**: Tailwind CSS + Vanilla CSS (Emerald & Slate Theme)
+- **Database**: MySQL / PostgreSQL
+- **Charts**: Chart.js for Administrative Insights
 
-## 🚀 Setup Instructions
+## 🚀 Setup & Installation
 
-1. **Clone the repository** (if not already in the project directory).
-2. **Install PHP dependencies**:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-repo/Pharmacy_Management_System.git
+   ```
+2. **Install Dependencies**:
    ```bash
    composer install
-   ```
-3. **Install & Initialize Laravel Breeze**:
-   ```bash
-   php artisan breeze:install livewire --functional --dark
-   ```
-4. **Database Configuration**:
-   Update your `.env` file with your database credentials:
-   ```env
-   DB_DATABASE=pharmacy_management_system
-   DB_USERNAME=root
-   DB_PASSWORD=your_password
-   ```
-5. **Run Migrations & Seeders**:
-   ```bash
-   php artisan migrate:fresh --seed
-   ```
-6. **Install & Build Frontend Assets**:
-   ```bash
    npm install
-   npm run dev
    ```
-7. **Create Storage Link**:
+3. **Environment Setup**:
+   Copy `.env.example` to `.env` and configure your database.
+4. **Database Initialization**:
+   ```bash
+   php artisan migrate --seed
+   ```
+5. **Storage Setup**:
    ```bash
    php artisan storage:link
    ```
+6. **Launch Application**:
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
 
-## Credentials
-- **Admin**: admin@medicare.com / password
+## 👥 Credentials
+- **Admin**: rikkisaini4455@gmail.com / admin123
 - **User**: user@medicare.com / password
 
 ---
-Built with ❤️ by Antigravity AI
+Developed with ❤️ by **Antigravity AI**

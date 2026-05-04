@@ -90,7 +90,9 @@
                         </div>
                         <div class="p-10 space-y-5 flex flex-col flex-1">
                             <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">{{ $medicine->category->name }}</div>
-                            <h3 class="font-black text-2xl group-hover:text-emerald-600 transition-colors leading-tight">{{ $medicine->name }}</h3>
+                            <h3 class="font-black text-2xl group-hover:text-emerald-600 transition-colors leading-tight">
+                                <a href="{{ route('medicine.detail', $medicine->slug) }}">{{ $medicine->name }}</a>
+                            </h3>
                             <p class="text-sm text-slate-500 font-medium line-clamp-3 leading-relaxed opacity-70">{{ $medicine->description }}</p>
                             
                             <div class="flex items-center justify-between pt-8 mt-auto">

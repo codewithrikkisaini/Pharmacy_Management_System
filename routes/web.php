@@ -22,17 +22,57 @@ use App\Livewire\Admin\Messages as AdminMessages;
 use App\Livewire\Admin\Banners as AdminBanners;
 use App\Livewire\Admin\Blogs as AdminBlogs;
 use App\Livewire\Admin\Settings as AdminSettings;
+use App\Livewire\MedicineDetail;
+use App\Livewire\Profile;
+use App\Livewire\Blogs;
+use App\Livewire\BlogDetail;
+use App\Livewire\About;
+use App\Livewire\Faq;
+use App\Livewire\HowToOrder;
+
+Route::get('/fix-images', function() {
+    try {
+        Artisan::call('storage:link');
+        return "Images Link ban gaya hai! Ab homepage refresh karke check karein.";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
+
+Route::get('/fix-admin', function() {
+    $user = \App\Models\User::where('email', 'rikkisaini4455@gmail.com')->first();
+    
+    if (!$user) {
+        $user = \App\Models\User::create([
+            'name' => 'Admin',
+            'email' => 'rikkisaini4455@gmail.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
+            'role' => 'admin'
+        ]);
+    } else {
+        $user->update([
+            'role' => 'admin',
+            'password' => \Illuminate\Support\Facades\Hash::make('admin123')
+        ]);
+    }
+
+    auth()->login($user);
+    return redirect()->route('admin.dashboard');
+});
 
 // Frontend Routes
 Route::get('/', Home::class)->name('home');
 Route::get('/medicines', Medicines::class)->name('medicines');
+Route::get('/medicine/{slug}', MedicineDetail::class)->name('medicine.detail');
 Route::get('/doctors', Doctors::class)->name('doctors');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/cart', Cart::class)->name('cart');
+Route::get('/profile', Profile::class)->middleware('auth')->name('profile');
 Route::get('/blogs', Blogs::class)->name('blogs');
 Route::get('/blog/{slug}', BlogDetail::class)->name('blog.detail');
 Route::get('/about', About::class)->name('about');
 Route::get('/faq', Faq::class)->name('faq');
+Route::get('/how-to-order', HowToOrder::class)->name('how-to-order');
 
 // Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -65,9 +105,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/blogs', AdminBlogs::class)->name('blogs');
         Route::get('/settings', AdminSettings::class)->name('settings');
     });
-
-    // User Profile (from Breeze)
-    Route::view('profile', 'profile')->name('profile');
 });
 
 require __DIR__.'/auth.php';

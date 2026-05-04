@@ -66,8 +66,16 @@
                 <span class="bg-emerald-500 text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Premium Care</span>
                 <h1 class="text-7xl font-black leading-tight text-white">Your Wellness <br><span class="text-emerald-500 underline decoration-8 decoration-emerald-500/30">Redefined</span></h1>
                 <p class="text-slate-300 text-xl max-w-md font-medium leading-relaxed">Trusted healthcare solutions delivered with precision and speed. Your health is our priority.</p>
-                <div class="flex space-x-6 pt-4">
-                    <a href="/medicines" class="bg-emerald-600 text-white px-12 py-5 rounded-2xl font-black shadow-2xl shadow-emerald-500/40 hover:bg-emerald-700 transition-all">Shop Now</a>
+                <div class="flex flex-col space-y-6 pt-4">
+                    <div class="relative w-full max-w-lg group">
+                        <input type="text" wire:model="search" wire:keydown.enter="performSearch" class="w-full bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl px-8 py-5 text-white font-bold placeholder-white/50 focus:ring-2 focus:ring-emerald-500 transition-all outline-none" placeholder="Search medicines, health products...">
+                        <button wire:click="performSearch" class="absolute right-3 top-2.5 bg-emerald-500 text-white p-3 rounded-2xl hover:bg-emerald-600 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="/medicines" class="bg-emerald-600 text-white px-12 py-5 rounded-2xl font-black shadow-2xl shadow-emerald-500/40 hover:bg-emerald-700 transition-all">Shop Now</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,7 +170,9 @@
                             <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ $medicine->category->name }}</span>
                             <span class="text-xs font-black text-emerald-600">★ 4.8</span>
                         </div>
-                        <h3 class="font-black text-xl text-slate-900 leading-snug">{{ $medicine->name }}</h3>
+                        <h3 class="font-black text-xl text-slate-900 leading-snug">
+                            <a href="{{ route('medicine.detail', $medicine->slug) }}" class="hover:text-emerald-600 transition-colors">{{ $medicine->name }}</a>
+                        </h3>
                         <div class="flex items-center justify-between pt-8 mt-auto">
                             <span class="text-3xl font-black text-slate-900">${{ number_format($medicine->price, 2) }}</span>
                             <button wire:click="addToCart({{ $medicine->id }})" class="bg-slate-900 text-white w-14 h-14 rounded-2xl hover:bg-emerald-600 transition-all shadow-xl shadow-slate-200 flex items-center justify-center">
@@ -205,7 +215,9 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute bottom-10 left-10 right-10">
                             <div class="text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] mb-2">{{ $doctor->specialization }}</div>
-                            <h3 class="text-2xl font-black text-white leading-tight">{{ $doctor->name }}</h3>
+                            <h3 class="font-black text-2xl group-hover:text-emerald-600 transition-colors leading-tight">
+                                {{ $doctor->name }}
+                            </h3>
                         </div>
                     </div>
                     <div class="p-10 space-y-8">

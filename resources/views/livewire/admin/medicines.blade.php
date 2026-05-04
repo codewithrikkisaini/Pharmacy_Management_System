@@ -76,6 +76,11 @@
                                 <div class="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                     <div class="h-full rounded-full {{ $medicine->stock < 10 ? 'bg-red-500' : 'bg-emerald-500' }}" style="width: {{ min($medicine->stock, 100) }}%"></div>
                                 </div>
+                                @if($medicine->expiry_date)
+                                    <div class="text-[9px] font-black {{ \Carbon\Carbon::parse($medicine->expiry_date)->isPast() ? 'text-red-500' : 'text-slate-400' }} uppercase tracking-widest pt-1">
+                                        Exp: {{ \Carbon\Carbon::parse($medicine->expiry_date)->format('M Y') }}
+                                    </div>
+                                @endif
                             </div>
                         </td>
                         <td class="px-8 py-5 text-right space-x-2">
@@ -151,6 +156,12 @@
                     <label class="block text-sm font-black text-slate-700 mb-3 uppercase tracking-widest">Initial Stock</label>
                     <input type="number" wire:model="stock" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-emerald-500 font-bold">
                     @error('stock') <span class="text-red-500 text-xs font-bold mt-2 block">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-black text-slate-700 mb-3 uppercase tracking-widest">Expiry Date</label>
+                    <input type="date" wire:model="expiry_date" class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-emerald-500 font-bold text-sm">
+                    @error('expiry_date') <span class="text-red-500 text-xs font-bold mt-2 block">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="col-span-2">
